@@ -8,7 +8,8 @@ class User < ApplicationRecord
     has_many :recieved_notes, through: :posts, :source => :notes
     has_many :subscriptions
 
-    validates :email, uniqueness: true
+    validates :email, :password, :username, presence: true
+    validates :email, :username, uniqueness: true
     validate :real_email
 
     def real_email

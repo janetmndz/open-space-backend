@@ -1,6 +1,6 @@
 t1 = Topic.create(topic_type: "mental health")
 t2 = Topic.create(topic_type: "relocation")
-t1 = Topic.create(topic_type: "anxiety")
+t3 = Topic.create(topic_type: "anxiety")
 
 
 u1 = User.create(username:"one", password: "123", email:"one@email.com")
