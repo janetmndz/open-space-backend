@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_09_191007) do
+ActiveRecord::Schema.define(version: 2019_10_09_194416) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,12 +25,36 @@ ActiveRecord::Schema.define(version: 2019_10_09_191007) do
     t.index ["user_id"], name: "index_notes_on_user_id"
   end
 
+  create_table "post_topics", force: :cascade do |t|
+    t.bigint "post_id"
+    t.bigint "topic_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["post_id"], name: "index_post_topics_on_post_id"
+    t.index ["topic_id"], name: "index_post_topics_on_topic_id"
+  end
+
   create_table "posts", force: :cascade do |t|
     t.bigint "user_id"
     t.string "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_posts_on_user_id"
+  end
+
+  create_table "subscriptions", force: :cascade do |t|
+    t.bigint "topic_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["topic_id"], name: "index_subscriptions_on_topic_id"
+    t.index ["user_id"], name: "index_subscriptions_on_user_id"
+  end
+
+  create_table "topics", force: :cascade do |t|
+    t.string "topic_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -43,5 +67,9 @@ ActiveRecord::Schema.define(version: 2019_10_09_191007) do
 
   add_foreign_key "notes", "posts"
   add_foreign_key "notes", "users"
+  add_foreign_key "post_topics", "posts"
+  add_foreign_key "post_topics", "topics"
   add_foreign_key "posts", "users"
+  add_foreign_key "subscriptions", "topics"
+  add_foreign_key "subscriptions", "users"
 end
