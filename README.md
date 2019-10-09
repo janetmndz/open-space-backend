@@ -22,3 +22,4 @@ A Ruby on Rails API backend for Mod5 final project at Flatiron School.
 5. Make sure Postgres is running in the background
 6. run `db:create` to make database on local machiene
 7. run `rails db:migrate` to run database migrations
+8. run `rails db:seed` to populate using seed data

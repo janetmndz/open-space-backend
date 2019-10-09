@@ -5,5 +5,7 @@ Rails.application.routes.draw do
   resources :notes, only: [:index]
   resources :posts, only: [:index]
   resources :users, only: [:index, :show]
+  
+  resources :tokens, only: [:create]
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
