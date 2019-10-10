@@ -49,3 +49,6 @@ gem 'active_model_serializers'
 
 # Figaro to hide API keys
 gem 'figaro'
+
+# JWT (JSON Web Token)
+gem 'jwt'

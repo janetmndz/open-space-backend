@@ -24,12 +24,12 @@ class ApplicationController < ActionController::API
     def logged_in_user_id
         token = request.headers["Authorization"]
         begin
-        dumb_array = JWT.decode(token, secret_token, true, { algorithm: 'HS256' })
-        payload = dumb_array.first
-        user_id = payload["user_id"]
-        return user_id
+            dumb_array = JWT.decode(token, secret_token, true, { algorithm: 'HS256' })
+            payload = dumb_array.first
+            user_id = payload["user_id"]
+            return user_id
         rescue
-        return nil
+            return nil
         end
     end
 
