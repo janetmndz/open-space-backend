@@ -1,7 +1,4 @@
 class UsersController < ApplicationController
-    # def index
-    #     @users = User.all
-    # end
     def show
         if (has_valid_token)
             @user = User.find(params[:id])
