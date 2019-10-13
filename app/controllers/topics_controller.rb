@@ -1,6 +1,7 @@
 class TopicsController < ApplicationController
     def index
         @topics = Topic.all
+        byebug
         render json: @topics
     end
     def show
