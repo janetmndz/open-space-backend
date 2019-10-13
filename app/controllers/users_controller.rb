@@ -10,6 +10,21 @@ class UsersController < ApplicationController
         end
     end
 
+    def postings
+        if (has_valid_token)
+            @user = User.find(params[:id])
+            ## All of the posts that aren't the user's
+            @postings = Post.all - @user.posts
+            @subs = @user.topics
+            @subedPosts =  @postings.select do |post|
+                (post.topics - @subs).empty?
+            end
+            render json: @subedPosts
+        else
+            render json: {message: "You don't got access to this"}, status: :unauthorized
+        end
+    end
+
     def show
         if (has_valid_token)
             @user = User.find(params[:id])

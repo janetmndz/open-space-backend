@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :tokens, only: [:create]
 
   get '/unsubscribed/:id', to: 'users#unsubscribed', as: 'unsubscribed'
+  get '/postings/:id', to: 'users#postings', as: 'postings'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
