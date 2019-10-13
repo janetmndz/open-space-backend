@@ -1,4 +1,15 @@
 class UsersController < ApplicationController
+    
+    def unsubscribed
+        if (has_valid_token)
+            @subscriptions = User.find(params[:id]).topics
+            @unsubscribed = Topic.all - @subscriptions
+            render json: @unsubscribed
+        else
+            render json: {message: "You don't got access to this"}, status: :unauthorized
+        end
+    end
+
     def show
         if (has_valid_token)
             @user = User.find(params[:id])

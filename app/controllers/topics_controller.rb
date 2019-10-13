@@ -4,6 +4,7 @@ class TopicsController < ApplicationController
         byebug
         render json: @topics
     end
+    
     def show
         @topic = Topic.all(params[:id])
         render json: @topic

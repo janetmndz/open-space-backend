@@ -7,6 +7,7 @@ class User < ApplicationRecord
     # These are the notes a User has receieved THROUGH their own post
     has_many :recieved_notes, through: :posts, :source => :notes
     has_many :subscriptions
+    has_many :topics, through: :subscriptions
 
     validates :email, :password, :username, presence: true
     validates :email, :username, uniqueness: true
