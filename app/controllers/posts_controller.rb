@@ -16,4 +16,10 @@ class PostsController < ApplicationController
             render json: {message: "You don't got access to this"}, status: :unauthorized
         end
     end
+
+    def update
+        @post = Post.find(params[:id])
+        @post.update(params.require(:post).permit(:content))
+        render json: @post
+    end
 end
