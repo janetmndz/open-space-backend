@@ -20,19 +20,28 @@ class PostsController < ApplicationController
     def update
         @post = Post.find(params[:id])
         @post.update(params.require(:post).permit(:content))
-        topics = params[:topics]
+        topics = params[:post][:topics]
         postTopics = @post.topics.map{|pt| pt.id.to_s}
-        if (postTopics.count < topics.count)
-            @newTopics = topics.select{|pt| !postTopics.include?(pt)}
+
+        # When there are new topics added, make new Post Topics
+        if (!(topics - postTopics).empty?)
+            @newTopics = topics - postTopics
             @newTopics.each{|nt| PostTopic.create(post_id: @post.id, topic_id: nt) }
-        elseif(postTopics.count > topics.count)
+            # Get this agai because some things have changed
+            @post = Post.find(params[:id])
+        end
+
+        # When  there are topics removed, destroy Post Topics
+        if(!(postTopics - topics).empty?)
             @removingTopics = postTopics - topics
             @removingTopics.each do |pt|
                 pT = @post.post_topics.find_by(topic_id: pt)
                 pT.destroy()
             end
+            # Get this agai because some things have changed
+            @post = Post.find(params[:id])
         end
-
+        
         render json: @post
     end
 end
