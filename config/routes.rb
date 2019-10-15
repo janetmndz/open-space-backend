@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   resources :post_topics, only: [:index]
   resources :topics, only: [:index]
   resources :notes, only: [:index]
-  resources :posts, only: [:index, :update]
+  resources :posts, only: [:index, :create, :update, :destroy]
   resources :users, only: [:show, :create]
   
   resources :tokens, only: [:create]

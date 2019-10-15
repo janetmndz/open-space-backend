@@ -17,6 +17,18 @@ class PostsController < ApplicationController
         end
     end
 
+    def create
+        if (has_valid_token)
+            @post = Post.create(params.require(:post).permit(:content, :user_id))
+            topics = params[:post][:topics]
+            topics.each{|t| PostTopic.create(post_id: @post.id, topic_id: t) }
+
+            render json: @post
+        else
+            render json: {message: "You don't got access to this"}, status: :unauthorized
+        end
+    end
+
     def update
         if (has_valid_token)
             @post = Post.find(params[:id])
@@ -46,6 +58,16 @@ class PostsController < ApplicationController
             render json: @post
         else
             render json: {message: "You don't got access to this."}, status: :unauthorized
+        end
+    end
+
+    def destroy
+        if (has_valid_token)
+            @post = Post.find(params[:id])
+            @post.destroy()
+            render json: {message: "Your post has been deleted"}
+        else
+            render json: {message: "You don't got access to this"}, status: :unauthorized
         end
     end
 end
