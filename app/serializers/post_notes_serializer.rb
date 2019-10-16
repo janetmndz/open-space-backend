@@ -1,5 +1,6 @@
 class PostNotesSerializer < ActiveModel::Serializer
-    attributes :id, :content, :topics, :user, :notes
+    attributes :id, :content, :topics, :user
+    has_many :notes
     
     def topics
       self.object.topics.map do |t|
