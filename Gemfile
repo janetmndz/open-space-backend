@@ -52,3 +52,6 @@ gem 'figaro'
 
 # JWT (JSON Web Token)
 gem 'jwt'
+
+# IBM Watson Ruby SDK
+gem 'ibm_watson'

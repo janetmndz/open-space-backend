@@ -33,4 +33,18 @@ class ApplicationController < ActionController::API
         end
     end
 
+    # APIKEY = ENV['ibm_watson_key']
+    # VERSION = ENV['ibm_watson_version']
+    # URL = ENV['ibm_watson_url']
+
+    # authenticator = Authenticators::IamAuthenticator.new(
+    #     apikey: APIKEY
+    # )
+
+    # # tone_analyzer = ToneAnalyzerV3.new(
+    # #     version: VERSION,
+    # #     authenticator: authenticator
+    # # )
+    # # tone_analyzer.service_url = URL
+
 end
