@@ -8,7 +8,6 @@ class Note < ApplicationRecord
 
   def no_anger
     tone = analyze_tone(self.content)
-    # byebug
     if (tone.map{|t| t["tone_id"]}.include?("anger"))
       errors.add(:content, "has been detected to have a bit of anger...")
     end
@@ -28,7 +27,14 @@ class Note < ApplicationRecord
   private 
 
   def analyze_tone(text)
-      tone = TONE_ANALYZER.tone(
+      tone_analyzer = ToneAnalyzerV3.new(
+          version: ENV['ibm_watson_version'],
+          authenticator: AUTHENTICATOR
+      )
+
+      tone_analyzer.service_url = ENV['ibm_watson_URL']
+
+      tone = tone_analyzer.tone(
           tone_input: {text: text},
           content_type: "application/json"
       )
