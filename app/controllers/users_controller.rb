@@ -42,7 +42,8 @@ class UsersController < ApplicationController
         if @user.valid?
             render json: token(@user)
         else
-            render json: {errors: @user.errors.full_message}
+            #byebug
+            render json: {errors: @user.errors.full_messages}
         end
 
     end

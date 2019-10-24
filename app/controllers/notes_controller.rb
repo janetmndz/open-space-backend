@@ -1,9 +1,6 @@
 class NotesController < ApplicationController
     def create
         if (has_valid_token)
-            # @text = params[:note][:content]
-            # @results = analyze_tone(@text)
-            # byebug
             @note = Note.create(params.require(:note).permit(:post_id, :user_id, :content))
             if @note.valid? 
                 render json: {message: "Your reply was sent!"}
