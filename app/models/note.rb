@@ -11,9 +11,9 @@ class Note < ApplicationRecord
     if (tone.map{|t| t["tone_id"]}.include?("anger"))
       errors.add(:content, "has been detected to have a bit of anger...")
     end
-    if (tone.filter{|t_obj| t_obj["tone_id"] === "sadness" && t_obj["score"] > 0.5}.count != 0)
-      errors.add(:content, "had been detected to sounds pretty upsetting and sad...")
-    end
+    # if (tone.filter{|t_obj| t_obj["tone_id"] === "sadness" && t_obj["score"] > 0.5}.count != 0)
+    #   errors.add(:content, "had been detected to sounds pretty upsetting and sad...")
+    # end
   end
 
   def no_shoulds
@@ -27,9 +27,12 @@ class Note < ApplicationRecord
   private 
 
   def analyze_tone(text)
+    authen = Authenticators::IamAuthenticator.new(
+        apikey: ENV['ibm_watson_key']
+    )
       tone_analyzer = ToneAnalyzerV3.new(
           version: ENV['ibm_watson_version'],
-          authenticator: AUTHENTICATOR
+          authenticator: authen
       )
 
       tone_analyzer.service_url = ENV['ibm_watson_URL']
