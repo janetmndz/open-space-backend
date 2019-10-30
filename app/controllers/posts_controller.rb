@@ -23,7 +23,7 @@ class PostsController < ApplicationController
             topics = params[:post][:topics]
             topics.each{|t| PostTopic.create(post_id: @post.id, topic_id: t) }
 
-            render json: PostNotesSerializer.new(@post).to_serialized_json
+            render json: @post, serializer: PostNotesSerializer
         else
             render json: {message: "You don't got access to this"}, status: :unauthorized
         end
